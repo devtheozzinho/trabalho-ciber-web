@@ -1,0 +1,49 @@
+input{
+    background-color: white;
+    color: black;
+    opacity: 0.8;
+    width: 200px;
+    height: 20px;
+    padding: 2px;
+    margin: 3px;
+    border: 2px solid black;   
+    border-radius: 8px;       
+    font-size: 16px;          
+    transition: all 0.3s ease; 
+
+}
+input:focus {
+    border-color: grey;     /* muda a cor da borda */
+    box-shadow: 0 0 5px grey; /* sombra suave */
+    outline: none;              /* remove contorno padrão */
+}
+
+input::placeholder{
+    font: italic;
+    color: black;
+
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    
+}
+
+h2 {
+    text-align: center; /* centraliza o texto horizontalmente */
+    margin-bottom: 20px; /* espaçamento abaixo do título */
+}
+
+button{
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

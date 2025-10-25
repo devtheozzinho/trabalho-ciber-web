@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+}
+
+.menu_lateral {
+    width: 220px;
+    background-color: #34495e;
+    color: white;
+    height: calc(100vh - 57px);
+}
+
+.menu_lateral li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 20px 20px;
+    font-size: 20px;
+    border-bottom: 1px solid #46627f;
+}
+
+.menu_lateral li a:hover {
+    background-color: #46627f;
+}
+
+.menu_lateral ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Barra superior*/
+.cabecalho {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+
+.info_usuario {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Definindo alguns estilos envolvendo o botão (borda, padding e etc)*/
+.info_usuario a {
+    color: white;
+    text-decoration: none;
+    background-color: #e74c3c;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* mudar a cor do botão quando o usuário passar o mouse*/
+.info_usuario a:hover {
+    background-color: #c0392b;
+}
+
+/* Definindo a area onde o conteudo vai aparecer*/
+.conteudo {
+    flex: 1;
+    padding: 25px;
+    height: calc(100vh - 57px - 50px);
+    overflow-y: auto;
+}
