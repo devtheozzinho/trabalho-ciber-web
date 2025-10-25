@@ -21,7 +21,6 @@ input:focus {
 input::placeholder{
     font: italic;
     color: black;
-
 }
 
 .container{
