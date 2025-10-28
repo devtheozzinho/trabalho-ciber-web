@@ -1,8 +1,8 @@
 <?php
 
 $usuario = 'root';
-$senha = 'Threff.8040';
-$database = 'meu_projeto_web';
+$senha = '';
+$database = 'mercado';
 $host = 'localhost';
 
 $mysqli = new mysqli ($host, $usuario, $senha, $database);
