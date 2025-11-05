@@ -12,15 +12,14 @@ $mensagem = ""; // Variável para armazenar mensagens de status
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // 1. Recebe e sanitiza os dados do formulário
-    $nome = $conn->real_escape_string($_POST['nome']); // Método rudimentar de sanitização
+    $nome = $conn->real_escape_string($_POST['nome']); 
     $email = $conn->real_escape_string($_POST['email']);
-    $senha = $_POST['senha']; // A senha deve ser *hasheada* antes de ser salva (veja a observação)
+    $senha = $_POST['senha']; 
     
     // EXEMPLO DE HASHEAMENTO SEGURO (Recomendado)
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT); 
     
-    // 2. Prepara a query SQL para inserção
-    // Usaremos $senha_hash para a senha no banco de dados
+
     $sql = "INSERT INTO usuarios (nome, email, senha) VALUES ('$nome', '$email', '$senha_hash')";
     
     // 3. Executa a query
@@ -40,40 +39,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Usuário - PHP Puro</title>
+
+
+        <style>
+            button {
+            width: 200px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: green;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        </style>
     
 </head>
-    <h2 class="titulo">Cadastro de Novo Usuário</h2>
-    <link rel="stylesheet" href="css/users.css">
+    <h2 class="titulo">Lista de usuário</h2>
+    
 <body>
 
-<div class="container">
+<a href="paginas/adicionar_usuarios.php">
+<button>Adicionar Usuário</button>
+</a>
+
+
   
-    <br>
     
-    <?php echo $mensagem; ?>
-
-    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
-        <p>
-
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required>
-        <p>
-
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
-        <p>
-
-        <label for="CPF">CPF:</label>
-        <input type="number" id="CPF" name="CPF" required>
-        <p>
-
-        <button type="button" onclick="alert('Sucesso!')">Cadastrar</button>
-
-    </form>
-</div>
-
-</body>
 </html>
