@@ -1,38 +1,16 @@
-
-
-
 <?php
-// Inclui o arquivo de conexão
-// include 'conexao.php';
-require_once(__DIR__ . "/../conexao.php"); 
 
-$mensagem = ""; // Variável para armazenar mensagens de status
+include("../conexao.php");
 
-// Verifica se o formulário foi submetido
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    // 1. Recebe e sanitiza os dados do formulário
-    $nome = $conn->real_escape_string($_POST['nome']); 
-    $email = $conn->real_escape_string($_POST['email']);
-    $senha = $_POST['senha']; 
-    
-    // EXEMPLO DE HASHEAMENTO SEGURO (Recomendado)
-    $senha_hash = password_hash($senha, PASSWORD_DEFAULT); 
-    
+if (!isset($mysqli) || $mysqli->connect_error) {
+    die("Erro: Falha na conexão com o banco de dados. Verifique conexao.php.");
 
-    $sql = "INSERT INTO usuarios (nome, email, senha) VALUES ('$nome', '$email', '$senha_hash')";
+
+
     
-    // 3. Executa a query
-    if ($conn->query($sql) === TRUE) {
-        $mensagem = "<p style='color: green;'>Usuário cadastrado com sucesso!</p>";
-    } else {
-        $mensagem = "<p style='color: red;'>Erro ao cadastrar usuário: " . $conn->error . "</p>";
-    }
 }
-
-// 4. Fecha a conexão
-// $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -66,6 +44,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <a href="paginas/adicionar_usuarios.php">
 <button>Adicionar Usuário</button>
 </a>
+<p>
+
+<style>
+        body { font-family: Arial; background: #f4f4f4; }
+        table { border-collapse: collapse; width: 50%; margin: 50px auto; background: #fff; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background: #007bff; color: white; }
+    </style>
+
+
+<table>
+    <tr>
+        <th>Nome</th>
+        
+        <th>Email</th>
+        
+        <th>CPF</th>
+
+        <th>Sexo</th>
+
+        <th>Nacionalidade</th>
+        
+    </tr>
 
 
   
