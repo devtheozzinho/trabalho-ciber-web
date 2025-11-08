@@ -1,34 +1,82 @@
 <?php
-
 include("conexao.php");
 
+
 if (!isset($mysqli) || $mysqli->connect_error) {
-    die("Erro: Falha na conexão com o banco de dados. Verifique conexao.php.");
-
-    include("../conexao.php");
-
-    $sql = "SELECT nome, email_usuario, cpf_usuario, sexo, nacionalidade FROM usuario ORDER BY nome ASC";
-
-    $result = $mysqli->query($sql);
-
-// Verifica se a consulta foi executada com sucesso
-if (!$result) {
-    die("Erro na consulta: " . $mysqli->error);
-    }
+    // Se a conexão falhar, o script PARA aqui e exibe a mensagem de erro.
+    die("Erro: Falha na conexão com o banco de dados. Verifique conexao.php. Erro: " . $mysqli->connect_error);
 }
 
-?>
+$sql = "SELECT id_usuario, nome, email_usuario, cpf_usuario, sexo, nacionalidade, usuario_telefone, endereco_usuario, cargo FROM usuario ORDER BY nome ASC";
 
+$result = $mysqli->query($sql);
+
+if (!$result) {
+    die("Erro na consulta SQL: " . $mysqli->error);
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Usuário - PHP Puro</title>
+    <title>Lista de Usuário - PHP Puro</title>
+</head>
+<h2 class="titulo">Lista de usuário</h2>
+<body>
 
+<a href="paginas/adicionar_usuarios.php">
+<button>Adicionar Usuário</button>
+</a>
+<p>
+    
+<form method="POST" action="excluir_usuarios.php"> 
+    <p>
+    <button type="button" id="selecionarTodos">Deletar Usuário</button>
+    </p>
 
-        <style>
-            button {
+    <table>
+        <tr>
+        <th>Sel.</th> 
+        <th>Nome</th>
+        <th>Email</th>
+        <th>CPF</th>
+        <th>Sexo</th>
+        <th>Nacionalidade</th>
+        <th>Telefone</th>
+        <th>Endereço</th>
+        <th>Cargo</th>
+
+        <?php
+        if ($result->num_rows > 0) {
+            while ($usuario = $result->fetch_assoc()) {
+                echo "<tr>";
+
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($usuario['nome']) . "</td>";
+                echo "<td>" . htmlspecialchars($usuario['email_usuario']) . "</td>";
+                echo "<td>" . htmlspecialchars($usuario['cpf_usuario']) . "</td>";
+                echo "<td>" . htmlspecialchars($usuario['sexo']) . "</td>";
+                echo "<td>" . htmlspecialchars($usuario['nacionalidade']) . "</td>";
+                echo "<td>" . htmlspecialchars($usuario['usuario_telefone']) . "</td>";
+                echo "<td>" . htmlspecialchars($usuario['endereco_usuario']) . "</td>";
+                echo "<td>" . htmlspecialchars($usuario['cargo']) . "</td>";
+                echo "</tr>";
+               
+                echo "<td><input type='checkbox' name='usuarios_a_excluir[]' value='" . htmlspecialchars($usuario['id_usuario']) . "'></td>";
+                
+                echo "<td>" . htmlspecialchars($usuario['nome']) . "</td>";
+                // ... Resto das colunas ...
+                echo "</tr>";
+            }
+        }
+        // ...
+        ?>
+    </table>
+</form>
+
+<style>
+    button {
             width: 200px;
             padding: 10px 20px;
             margin-top: 10px;
@@ -42,41 +90,48 @@ if (!$result) {
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        </style>
-    
-</head>
-    <h2 class="titulo">Lista de usuário</h2>
-    
-<body>
+        body { 
+            font-family:Arial; 
+            background: #f4f4f4; 
+        }
 
-<a href="paginas/adicionar_usuarios.php">
-<button>Adicionar Usuário</button>
-</a>
-<p>
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 50px auto; 
+            background: #fff; 
+        }
 
-<style>
-        body { font-family: Arial; background: #f4f4f4; }
-        table { border-collapse: collapse; width: 50%; margin: 50px auto; background: #fff; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-        th { background: #007bff; color: white; }
-    </style>
+        th, td { 
+            border: 1px solid #ddd;  
+            padding: 10px; text-align: center; 
+        }
 
+        th { 
+            background: #000000ff; 
+            color: white; 
+        }
+</style>
 
-<table>
-    <tr>
-        <th>Nome</th>
+</form>
+
+<script>
+    document.getElementById('selecionarTodos').onclick = function() {
+        // Usa o estado 'data-checked' para controlar o botão de toggle
+        var isChecked = this.getAttribute('data-checked') !== 'true';
         
-        <th>Email</th>
+        var checkboxes = document.getElementsByName('usuarios_a_excluir[]');
         
-        <th>CPF</th>
+        for (var checkbox of checkboxes) {
+            checkbox.checked = isChecked;
+        }
 
-        <th>Sexo</th>
+        // Atualiza o estado
+        this.setAttribute('data-checked', isChecked);
+        // Opcional: Altera o texto do botão
+        this.textContent = isChecked ? 'Deselecionar Todos' : 'Selecionar Todos';
+    }
+</script>
 
-        <th>Nacionalidade</th>
-        
-    </tr>
-
-
-  
-    
+</body>
 </html>

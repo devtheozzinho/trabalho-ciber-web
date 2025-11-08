@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefone = $_POST["telefone"];
     $endereco = $_POST["endereco"];
     $cargo = $_POST["cargo"];
-
+    
     
     //query que vai ser executado com os inserts sendo inseridos no banco
     $sql = "INSERT INTO usuario (nome, senha, email_usuario, cpf_usuario, sexo, nacionalidade, usuario_telefone, endereco_usuario, cargo) VALUES (?, ?, ? ,?, ?, ?, ?, ?, ?) ";
