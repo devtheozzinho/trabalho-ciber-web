@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 include('conexao.php');
 
@@ -13,7 +18,7 @@ $senha_digitada = $_POST['senha'];
 
 // Criamos uma variável contendo a consulta que iremos realizar.
 // Essa consulta seleciona o id_usuario, nome e senha (com hash) da tabela usuario onde email_usuario = ? (definido posteriormente).
-$sql = "SELECT id_usuario, nome, senha FROM Usuario WHERE email_usuario = ?";
+$sql = "SELECT id_usuario, nome, senha, admin FROM usuario WHERE email_usuario = ?";
 $stmt = $mysqli->prepare($sql);
 if ($stmt === false) {
     die("Erro ao preparar a consulta: " . $mysqli->error);
@@ -39,12 +44,13 @@ if($resultado->num_rows == 1) {
         // Guarda as informações do usuário na sessão.
         $_SESSION['id_usuario'] = $usuario_encontrado['id_usuario'];
         $_SESSION['nome_usuario'] = $usuario_encontrado['nome'];
+        $_SESSION['admin'] = $usuario_encontrado['admin'];
+
+        header('Location: painel.php');
+        exit();
     }
         
     
-    
-    header('Location: painel.php');
-    exit();
 }
 
 

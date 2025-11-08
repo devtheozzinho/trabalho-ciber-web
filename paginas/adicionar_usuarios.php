@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION['id_usuario'])) {
+    die("Erro: Você precisa estar logado para fazer uma requisição.");
+}
+
 include("../conexao.php");
 // requisição com os dados que vão ser usados no cadastro
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,12 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefone = $_POST["telefone"];
     $endereco = $_POST["endereco"];
     $cargo = $_POST["cargo"];
+    $id_req = $_SESSION['id_usuario'];
     
     
     //query que vai ser executado com os inserts sendo inseridos no banco
-    $sql = "INSERT INTO usuario (nome, senha, email_usuario, cpf_usuario, sexo, nacionalidade, usuario_telefone, endereco_usuario, cargo) VALUES (?, ?, ? ,?, ?, ?, ?, ?, ?) ";
+    $sql = "INSERT INTO req_user (nome, senha, email, cpf, sexo, nacionalidade, telefone, endereco, cargo, id_user_req) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("sssssssss", $nome, $senha, $email, $cpf, $sexo, $nacionalidade, $telefone, $endereco, $cargo);
+    $stmt->bind_param("sssssssssi", $nome, $senha, $email, $cpf, $sexo, $nacionalidade, $telefone, $endereco, $cargo, $id_req);
 
     if ($stmt->execute()) {
         header("Location: sucesso.php");   // na linha de cima executa a query e o sucesso.php é a tela que irá redirecionar caso de certo o cadastro.

@@ -37,6 +37,7 @@ $nome_usuario = $_SESSION['nome_usuario'];
                 <li><a href="painel.php?pagina=fornecedores">Fornecedores</a></li>
                 <li><a href="painel.php?pagina=armazens">Armazéns</a></li>
                 <li><a href="painel.php?pagina=usuarios">Usuários</a></li>
+                <li><a href="painel.php?pagina=admin_add_user">Requests</a></li>
             </ul>
         </nav>
 
