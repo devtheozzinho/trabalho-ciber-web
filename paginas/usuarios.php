@@ -1,14 +1,22 @@
 <?php
 
-include("../conexao.php");
+include("conexao.php");
 
 if (!isset($mysqli) || $mysqli->connect_error) {
     die("Erro: Falha na conexão com o banco de dados. Verifique conexao.php.");
 
+    include("../conexao.php");
 
+    $sql = "SELECT nome, email_usuario, cpf_usuario, sexo, nacionalidade FROM usuario ORDER BY nome ASC";
 
-    
+    $result = $mysqli->query($sql);
+
+// Verifica se a consulta foi executada com sucesso
+if (!$result) {
+    die("Erro na consulta: " . $mysqli->error);
+    }
 }
+
 ?>
 
 

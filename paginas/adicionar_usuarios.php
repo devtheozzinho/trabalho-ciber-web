@@ -1,13 +1,6 @@
 <?php
 
 include("../conexao.php");
-
-//validação para caso de erro de conexão com o banco
-if (!isset($mysqli) || $mysqli->connect_error) {
-    die("Erro: Falha na conexão com o banco de dados. Verifique conexao.php.");
-}
-
-
 // requisição com os dados que vão ser usados no cadastro
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
@@ -30,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: sucesso.php");   // na linha de cima executa a query e o sucesso.php é a tela que irá redirecionar caso de certo o cadastro.
         exit;
     } else {
-        echo "Erro ao cadastrar: " . $stmt->error; // caso de erro na desgraça do cadastro 
+        echo "Erro ao cadastrar: " . $stmt->error; // caso de erro no cadastro 
     }
 
     $stmt->close();
@@ -38,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-//form html do cadastro de usuário
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
