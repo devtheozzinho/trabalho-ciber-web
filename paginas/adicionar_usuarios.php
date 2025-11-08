@@ -1,3 +1,37 @@
+<?php
+
+include("../conexao.php");
+// requisição com os dados que vão ser usados no cadastro
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = $_POST["nome"];
+    $senha = password_hash( $_POST["senha"], PASSWORD_DEFAULT);
+    $email = $_POST["email"];
+    $cpf = $_POST["cpf"];
+    $sexo = $_POST["sexo"];
+    $nacionalidade = $_POST["nacionalidade"];
+    $telefone = $_POST["telefone"];
+    $endereco = $_POST["endereco"];
+    $cargo = $_POST["cargo"];
+
+    
+    //query que vai ser executado com os inserts sendo inseridos no banco
+    $sql = "INSERT INTO usuario (nome, senha, email_usuario, cpf_usuario, sexo, nacionalidade, usuario_telefone, endereco_usuario, cargo) VALUES (?, ?, ? ,?, ?, ?, ?, ?, ?) ";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("sssssssss", $nome, $senha, $email, $cpf, $sexo, $nacionalidade, $telefone, $endereco, $cargo);
+
+    if ($stmt->execute()) {
+        header("Location: sucesso.php");   // na linha de cima executa a query e o sucesso.php é a tela que irá redirecionar caso de certo o cadastro.
+        exit;
+    } else {
+        echo "Erro ao cadastrar: " . $stmt->error; // caso de erro no cadastro 
+    }
+
+    $stmt->close();
+    $mysqli->close(); //encerra a conexão com o banco
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,32 +44,38 @@
 <body>
 
 <div class="container">
-  
+    
     <br>
 
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                
-        <input type="text" placeholder="Nome">
-        <p>
+    <input type="text" name="nome" placeholder="Nome" required>
+    <p>
 
-        <input type="text" placeholder="Email">
-        <p>
+    <input type="password" name="senha" placeholder="Senha" required>
+    <p>
 
-        <input type="text" placeholder="Senha">
-        <p>
+    <input type="email" name="email" placeholder="Email" required>
+    <p>
 
-        <input type="text" placeholder="CPF">
-        <p>
- 
-        <input type="text" placeholder="sexo">
-        <p>
-         
-        <input type="text" placeholder="Nacionalidade">
-        <p>
+    <input type="text" name="cpf" placeholder="CPF" required>
+    <p>
 
-        <button type="button" onclick="alert('Sucesso!')">Cadastrar</button>
+    <input type="text" name="sexo" placeholder="Sexo" required>
+    <p>
 
-    </form>
+    <input type="text" name="nacionalidade" placeholder="Nacionalidade" required>
+    <p>
+
+    <input type="text" name="telefone" placeholder="Telefone" required>
+    <p>
+
+    <input type="text" name="endereco" placeholder="Endereço" required>
+    <p>
+
+    <input type="text" name="cargo" placeholder="Cargo" required>
+    <p>
+    <button type="submit">Cadastrar</button>
+</form>
 </div>
 
 </body>

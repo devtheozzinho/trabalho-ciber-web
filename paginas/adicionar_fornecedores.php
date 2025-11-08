@@ -17,20 +17,23 @@
                 
         <input type="text" placeholder="Nome">
         <p>
-
-        <input type="text" placeholder="Email">
-        <p>
-
+        
         <input type="text" placeholder="Senha">
         <p>
 
-        <input type="text" placeholder="CPF">
+        <input type="text" placeholder="CNPJ">
+        <p>
+
+        <input type="text" placeholder="Razão Social">
+        <p>
+
+        <input type="text" placeholder="Departamento">
         <p>
  
-        <input type="text" placeholder="sexo">
+        <input type="text" placeholder="Telefone">
         <p>
          
-        <input type="text" placeholder="Nacionalidade">
+        <input type="text" placeholder="Email">
         <p>
 
         <button type="button" onclick="alert('Sucesso!')">Cadastrar</button>
