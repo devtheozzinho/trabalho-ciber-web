@@ -53,50 +53,9 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <title>Lista de Usuários</title>
-    <style>
-    button {
-        width: 200px;
-        padding: 10px 20px;
-        margin-top: 10px;
-        border: none;
-        border-radius: 8px;
-        background-color: green;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
 
-    .botao-deletar {
-        background-color: #dc3545;
-    }
+    <link rel="stylesheet" href="css/tabela.css?v=<?php echo time(); ?>">
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        background: #fff;
-        margin-top: 20px;
-    }
-
-    th,
-    td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-    }
-
-    th {
-        background: #000;
-        color: #fff;
-    }
-
-    body {
-        font-family: Arial;
-        background: #f4f4f4;
-    }
-    </style>
 </head>
 
 <body>
@@ -106,7 +65,7 @@ if (!$result) {
 
     <form method="POST" action="">
         <p>
-            <button type="submit" class="botao-deletar">Deletar Selecionados</button>
+            <button type="submit" class="botao-deletar">Deletar Usuário</button>
         </p>
 
         <table>

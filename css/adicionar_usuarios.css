@@ -1,0 +1,64 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Fundo cinza claro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+
+.titulo {
+    color: #343a40; /* Cor escura para o título */
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Largura fixa */
+}
+
+/* Inputs do Formulário */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box; /* Garante que padding não aumenta a largura total */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #007bff; /* Borda azul ao focar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    outline: none; /* Remove a borda padrão do navegador */
+}
+
+/* Botão Cadastrar */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745; /* Verde */
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838; /* Verde mais escuro no hover */
+}
+
+button[type="submit"]:active {
+    transform: translateY(1px); /* Efeito de clique */
+}

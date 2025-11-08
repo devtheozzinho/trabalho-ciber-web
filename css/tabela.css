@@ -1,0 +1,62 @@
+/* Tabela */
+table {
+    border-collapse: collapse;
+    width: 100%; /* Mais largura */
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra suave */
+    overflow: hidden; /* Garante que os cantos arredondados funcionem */
+}
+
+/* Cabeçalho */
+th {
+    background: #343a40; /* Preto forte/cinza escuro */
+    color: white;
+    padding: 15px 10px; /* Mais padding */
+    text-align: left; /* Alinhamento à esquerda */
+    font-weight: 700;
+}
+
+/* Células */
+td {
+    border: none; /* Remove bordas de célula */
+    border-bottom: 1px solid #dee2e6; /* Apenas uma linha divisória leve */
+    padding: 12px 10px;
+    text-align: left; /* Alinhamento à esquerda */
+}
+
+/* Efeito Zebrada (Alterna cores das linhas) */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Efeito Hover (Ao passar o mouse) */
+tr:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+}
+
+/* Ajuste para células de seleção (checkbox) */
+td:first-child, th:first-child {
+    text-align: center;
+    width: 50px;
+}
+button {
+        width: 200px;
+        padding: 10px 20px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: green;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .botao-deletar {
+        background-color: #dc3545;
+    }
