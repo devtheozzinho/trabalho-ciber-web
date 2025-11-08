@@ -34,49 +34,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Usuário - PHP Puro</title>
-     <link rel="stylesheet" href="../css/users.css?v=<?php echo time(); ?>">
-    
+    <link rel="stylesheet" href="../css/adicionar_usuarios.css?v=<?php echo time(); ?>">
+
 </head>
-    <h2 class="titulo">Cadastro de Novo Usuário</h2>
+<h2 class="titulo">Cadastro de Novo Usuário</h2>
+
 <body>
 
-<div class="container">
-    
-    <br>
+    <div class="container">
 
-    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-    <input type="text" name="nome" placeholder="Nome" required>
-    <p>
+        <br>
 
-    <input type="password" name="senha" placeholder="Senha" required>
-    <p>
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <p>
 
-    <input type="email" name="email" placeholder="Email" required>
-    <p>
+                <input type="password" name="senha" placeholder="Senha" required>
+            <p>
 
-    <input type="text" name="cpf" placeholder="CPF" required>
-    <p>
+                <input type="email" name="email" placeholder="Email" required>
+            <p>
 
-    <input type="text" name="sexo" placeholder="Sexo" required>
-    <p>
+                <input type="text" name="cpf" placeholder="CPF" required>
+            <p>
 
-    <input type="text" name="nacionalidade" placeholder="Nacionalidade" required>
-    <p>
+                <input type="text" name="sexo" placeholder="Sexo" required>
+            <p>
 
-    <input type="text" name="telefone" placeholder="Telefone" required>
-    <p>
+                <input type="text" name="nacionalidade" placeholder="Nacionalidade" required>
+            <p>
 
-    <input type="text" name="endereco" placeholder="Endereço" required>
-    <p>
+                <input type="text" name="telefone" placeholder="Telefone" required>
+            <p>
 
-    <input type="text" name="cargo" placeholder="Cargo" required>
-    <p>
-    <button type="submit">Cadastrar</button>
-</form>
-</div>
+                <input type="text" name="endereco" placeholder="Endereço" required>
+            <p>
+
+                <input type="text" name="cargo" placeholder="Cargo" required>
+            <p>
+                <button type="submit">Cadastrar</button>
+        </form>
+    </div>
 
 </body>
+
 </html>
