@@ -66,6 +66,8 @@ if (!$result) {
     <form method="POST" action="">
         <p>
             <button type="submit" class="botao-deletar">Deletar Usuário</button>
+
+
         </p>
 
         <table>
