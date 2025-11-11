@@ -29,7 +29,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $mysqli->close(); //encerra a conexão com o banco
 }
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $cpf = preg_replace('/\D/', '', $_POST["cpf"]); // Remove pontos e traços
+    $telefone = preg_replace('/\D/', '', $_POST["telefone"]); // Remove parênteses e hífens
+
+    // Validação CPF (11 dígitos)
+    if (!preg_match("/^[0-9]{11}$/", $cpf)) {
+        die("CPF inválido. Deve conter 11 números.");
+    }
+
+    // Validação Telefone (10 ou 11 dígitos)
+    if (!preg_match("/^[0-9]{10,11}$/", $telefone)) {
+        die("Telefone inválido. Deve conter 10 ou 11 números.");
+    }
+
+    echo "✅ CPF e Telefone válidos!";
+}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -50,36 +68,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <br>
 
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="text" name="nome" placeholder="Informe seu Nome" required>
             <p>
 
-                <input type="password" name="senha" placeholder="Senha" required>
+                <input type="password" name="senha" placeholder="Digite uma Senha" required>
             <p>
 
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Insira seu email" required>
             <p>
 
-                <input type="text" name="cpf" placeholder="CPF" required>
+                <input type="text" id="cpf" name="cpf" maxlength="14" placeholder="Insira CPF" required>
             <p>
 
-                <input type="text" name="sexo" placeholder="Sexo" required>
+                <input type="text" name="sexo" placeholder="Informe seu Sexo" required>
             <p>
 
-                <input type="text" name="nacionalidade" placeholder="Nacionalidade" required>
+                <input type="text" name="nacionalidade" maxlength="14" placeholder="informe sua Nacionalidade" required>
             <p>
 
-                <input type="text" name="telefone" placeholder="Telefone" required>
+                <input type="tel" name="telefone" id="telefone" maxlength="15" placeholder="Digite seu Telefone"
+                    required>
             <p>
 
-                <input type="text" name="endereco" placeholder="Endereço" required>
+                <input type="text" name="endereco" placeholder="Digite um Endereço" required>
             <p>
 
-                <input type="text" name="cargo" placeholder="Cargo" required>
+                <input type="text" name="cargo" placeholder="Digite seu Cargo" required>
             <p>
                 <button type="submit">Cadastrar</button>
         </form>
     </div>
 
 </body>
+
+<script>
+// Mascara para formatar o cpf e deixão bunitão
+document.getElementById('cpf').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+    if (value.length > 11) value = value.slice(0, 11);
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    e.target.value = value;
+});
+
+// Máscara  prara formatar o telefone e deixar bunitinho =
+document.getElementById('telefone').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length <= 10) {
+        value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else {
+        value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    }
+    e.target.value = value;
+});
+</script>
 
 </html>
