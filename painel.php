@@ -45,15 +45,30 @@ $nome_usuario = $_SESSION['nome_usuario'];
             
             <?php
                 $pagina = $_GET['pagina'] ?? 'home';
-                $caminho = "paginas/{$pagina}.php";
+                $paginas_permitidas = [
+                    'home',
+                    'produtos',
+                    'fornecedores',
+                    'armazens',
+                    'usuarios',
+                    'admin_add_user',
+                    'adicionar_armazem'
+                ];
 
-                if (file_exists($caminho)) {
-                    include $caminho;
+
+                
+                if (in_array($pagina, $paginas_permitidas)) {
+                    $caminho = "paginas/{$pagina}.php";
+
+                    if (file_exists($caminho)) {
+                        include $caminho;
+                    } else {
+                        echo "<h1>Página não encontrada</h1>";
+                    }
                 } else {
-                    echo "<h1>Página não encontrada</h1>";
+                    echo "<h1>Página não encontrada (Acesso negado).</h1>";
                 }
-            ?>
-
+            ?> 
         </main>
 
         

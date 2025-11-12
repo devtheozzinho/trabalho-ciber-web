@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION['id_usuario'])) {
@@ -12,20 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $id_req = $_SESSION['id_usuario'];
 
-    // Pega os dados do post para um array
     $dados_formulario = [
-        "razao_social" => $_POST["razao_social"],
-        "email" => $_POST["email"],
-        "cnpj" => $_POST["cnpj"],
-        "telefone" => $_POST["telefone"],
-        "departamento" => $_POST["departamento"]
+        "endereco_armazem" => $_POST["endereco_armazem"],
+        "capacidade" => $_POST["capacidade"],
+        "responsavel" => $_POST["responsavel"]
     ];
     
-    // transforma o array em JSON
     $dados_json = json_encode($dados_formulario);
     
     $sql = "INSERT INTO requests (id_user_req, tipo_acao, recurso, dados) 
-            VALUES (?, 'create', 'fornecedor', ?)";    
+            VALUES (?, 'create', 'armazem', ?)";    
 
     $stmt = $mysqli->prepare($sql); 
     if ($stmt === false) {
@@ -38,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: sucesso.php");
         exit;
     } else {
-        echo "Erro ao criar solicitação: " . $stmt->error;
+        echo "Erro ao criar solicitação: " . $stmt->error . " (Verifique se você rodou o ALTER TABLE na coluna 'recurso')";
     }
 
     $stmt->close();
@@ -49,23 +44,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Fornecedor -</title>
+    <title>Cadastro de Armazém</title>
     <link rel="stylesheet" href="../css/adicionar_fornecedores.css?v=<?php echo time(); ?>">
 </head>
-<h2 class="titulo">Cadastro de Novo Fornecedor</h2>
+<h2 class="titulo">Cadastro de Novo Armazém</h2>
 <body>
     <div class="container">
         <br>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <input type="text" name="razao_social" placeholder="Razão Social" required>
+            <input type="text" name="endereco_armazem" placeholder="Endereço Completo" required>
             <p>
-                <input type="text" name="cnpj" placeholder="CNPJ" required>
+                <input type="number" name="capacidade" placeholder="Capacidade (unidades)" required>
             <p>
-                <input type="text" name="email" placeholder="Email" required>
-            <p>
-                <input type="text" name="telefone" placeholder="Telefone" required>
-            <p>
-                <input type="text" name="departamento" placeholder="Departamento" required>
+                <input type="text" name="responsavel" placeholder="Nome do Responsável" required>
             <p>
                 <button type="submit">Solicitar Cadastro</button>
         </form>

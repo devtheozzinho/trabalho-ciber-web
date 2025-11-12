@@ -53,11 +53,10 @@ if($resultado->num_rows == 1) {
     
 }
 
-
-echo "<h1>Falha ao logar! Login ou senha incorretos.</h1>";
-echo "<a href='login.html'>Voltar</a>";
-
+// Se chegou aq, login falhou
 $stmt->close();
 $mysqli->close();
+header('Location: login.html?erro=1');
+exit();
 
 ?>

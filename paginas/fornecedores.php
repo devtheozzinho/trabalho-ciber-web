@@ -2,37 +2,41 @@
 include("conexao.php");
 
 
-function refValues($arr)
-{
-    if (strnatcmp(phpversion(), '5.3') >= 0) {
-        $refs = [];
-        foreach ($arr as $key => $value)
-            $refs[$key] = &$arr[$key];
-        return $refs;
-    }
-    return $arr;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['fornecedor_a_excluir'])) {
+    
+    session_start();
+
+    if (!isset($_SESSION['id_usuario'])) {
+        die("Você precisa estar logado");
+    }
+    
     $ids_a_excluir = $_POST['fornecedor_a_excluir'];  
+    $id_req = $_SESSION['id_usuario'];
 
-    $placeholders = implode(',', array_fill(0, count($ids_a_excluir), '?'));
-    $sql_delete = "DELETE FROM fornecedor WHERE id_fornecedor IN ($placeholders)";  // Requisição para excluir do banco 
+    $sql_insert = "INSERT INTO requests (id_user_req, tipo_acao, recurso, id_alvo) VALUES (?, 'delete', 'fornecedor', ?)";
+    $stmt = $mysqli->prepare($sql_insert);
 
-    $stmt = $mysqli->prepare($sql_delete);
-    $tipos = str_repeat('i', count($ids_a_excluir));
-    $bind_params = array_merge([$tipos], $ids_a_excluir);
-    call_user_func_array([$stmt, 'bind_param'], refValues($bind_params));
+    $erros = [];
+    $sucessos = 0;
 
+    foreach ($ids_a_excluir as $id_alvo) {
+        $stmt->bind_param("ii", $id_req, $id_alvo);
 
-    if ($stmt->execute()) {
-    echo "<p id='mensagem-status' style='color: green; font-weight: bold;'>"
-        . $stmt->affected_rows . " usuário(s) excluído(s) com sucesso.</p>";
-} else {
-    echo "<p id='mensagem-status' style='color: red; font-weight: bold;'>Erro ao excluir: " . $stmt->error . "</p>";
-}
+        if ($stmt->execute()) {
+            $sucessos++;
+        } else {
+            $erros[] = $stmt->error;
+        }
+    }
 
-$stmt->close();
+    if (empty($erros)) {
+            echo "<p id='mensagem-status' style='color: green; font-weight: bold;'>"
+                . $sucessos . " solicitação(ões) de exclusão enviada(s) com sucesso.</p>";
+        } else {
+            echo "<p id='mensagem-status' style='color: red; font-weight: bold;'>Erro ao criar solicitações: " . implode(", ", $erros) . "</p>";
+        }
+
+    $stmt->close();
 }
 
 $sql = "SELECT id_fornecedor, razao_social, email_fornecedor, cnpj, telefone_fornecedor, departamento
