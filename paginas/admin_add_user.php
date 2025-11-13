@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_id'])) {
             $dados = json_decode($req['dados'], true);
 
             $mysqli->begin_transaction(); 
+            $mysqli->begin_transaction(); 
             try {
                 // Cria usuário
                 if ($req['tipo_acao'] == 'create' && $req['recurso'] == 'usuario') {
@@ -34,11 +35,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_id'])) {
                     $stmt_exec->execute();
                 } 
                 
-                // Cria fornecedor
+                // cria fornecedor
+                else if ($req['tipo_acao'] == 'create' && $req['recurso'] == 'fornecedor') {
+                    $sql_exec = "INSERT INTO fornecedor (razao_social, email_fornecedor, cnpj, telefone_fornecedor, departamento) VALUES (?, ?, ?, ?, ?)";
+                    $stmt_exec = $mysqli->prepare($sql_exec);
+                    $stmt_exec->bind_param("sssss", $dados['razao_social'], $dados['email'], $dados['cnpj'], $dados['telefone'], $dados['departamento']
+                    );
+                    $stmt_exec->execute();
+                }
+                
                 // Deleta fornecedor
                 else if ($req['tipo_acao'] == 'delete' && $req['recurso'] == 'fornecedor') {
                     
-                    // PASSO 1: Verificar se há produtos ("filhos") vinculados
                     $id_fornecedor_para_deletar = $req['id_alvo'];
                     $check_sql = "SELECT COUNT(*) as product_count FROM produto WHERE id_fornecedor = ?";
                     
@@ -50,9 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_id'])) {
                     $product_count = $row['product_count'];
                     $check_stmt->close();
 
-                    // PASSO 2: Se houver produtos (count > 0), lançar um erro amigável
                     if ($product_count > 0) {
-                        // Isso para o 'try' e pula direto para o 'catch'
                         throw new Exception("Não é possível apagar: Este fornecedor ainda tem $product_count produto(s) vinculados a ele.");
                     }
 
@@ -88,14 +94,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_id'])) {
                     $stmt_exec->bind_param("i", $req['id_alvo']);
                     $stmt_exec->execute();
                 }
-                
-                // Deleta fornecedor
-                else if ($req['tipo_acao'] == 'delete' && $req['recurso'] == 'fornecedor') {
-                    $sql_exec = "DELETE FROM fornecedor WHERE id_fornecedor = ?";
-                    $stmt_exec = $mysqli->prepare($sql_exec);
-                    $stmt_exec->bind_param("i", $req['id_alvo']);
-                    $stmt_exec->execute();
-                }
 
                 // Deleta produto
                 else if ($req['tipo_acao'] == 'delete' && $req['recurso'] == 'produto') {
@@ -111,6 +109,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_id'])) {
                     $stmt_exec = $mysqli->prepare($sql_exec);
                     $stmt_exec->bind_param("i", $req['id_alvo']);
                     $stmt_exec->execute();
+                }
+
+                else {
+                    throw new Exception("Tipo de requisição desconhecido: " . $req['tipo_acao'] . "/" . $req['recurso']);
                 }
 
 
