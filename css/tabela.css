@@ -1,43 +1,32 @@
-/* Tabela */
+/*Tabela*/
 table {
-    border-collapse: collapse;
-    width: 100%; /* Mais largura */
-    margin: 50px auto;
-    background: #fff;
-    border-radius: 8px; /* Cantos arredondados */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra suave */
-    overflow: hidden; /* Garante que os cantos arredondados funcionem */
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Cabeçalho */
-th {
-    background: #343a40; /* Preto forte/cinza escuro */
-    color: white;
-    padding: 15px 10px; /* Mais padding */
-    text-align: left; /* Alinhamento à esquerda */
-    font-weight: 700;
+
+/*Cabeçalho da tabela*/
+th, td {
+  padding: 12px 15px;
+  text-align: left;
 }
 
-/* Células */
-td {
-    border: none; /* Remove bordas de célula */
-    border-bottom: 1px solid #dee2e6; /* Apenas uma linha divisória leve */
-    padding: 12px 10px;
-    text-align: left; /* Alinhamento à esquerda */
+/*Esse da um efeito de zebra nas linhas*/
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
 }
 
-/* Efeito Zebrada (Alterna cores das linhas) */
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+tbody tr:hover {
+  background-color: #e9ecef;
+  transition: 0.3s;
 }
 
-/* Efeito Hover (Ao passar o mouse) */
-tr:hover {
-    background-color: #e9ecef;
-    cursor: pointer;
-}
-
-/* Ajuste para células de seleção (checkbox) */
+/*Checkbox*/
 td:first-child, th:first-child {
     text-align: center;
     width: 50px;

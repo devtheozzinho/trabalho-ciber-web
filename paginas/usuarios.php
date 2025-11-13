@@ -87,8 +87,7 @@ if (!$result_select) {
                     echo "<tr>";
                     // adicioneii disabled pro usuário n se selecionar.
                     $disabled = ($usuario['id_usuario'] == $_SESSION['id_usuario']) ? 'disabled' : '';
-                    echo "<td><input type='checkbox' name='usuarios_a_excluir[]' value='" 
-                         . htmlspecialchars($usuario['id_usuario']) . "' $disabled></td>";
+                    echo "<td><input type='checkbox' name='usuarios_a_excluir[]' value='" .htmlspecialchars($usuario['id_usuario']) . "' $disabled></td>";
                     echo "<td>" . htmlspecialchars($usuario['id_usuario']) . "</td>";
                     echo "<td>" . htmlspecialchars($usuario['nome']) . "</td>";
                     echo "<td>" . htmlspecialchars($usuario['email_usuario']) . "</td>";

@@ -1,69 +1,91 @@
 body {
-    font-family: Arial, sans-serif;
-}
-.container-produtos {
-    padding: 20px;
-    color: #000;
-}
-
-.botoes-produto {
-    margin-top: 15px;
-}
-
-.btn-acao {
-    background-color: #2f3e52;
-    color: #fff;
-    border: none;
-    padding: 8px 15px;
-    margin-right: 8px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.btn-acao:hover {
-    background-color: #1e2b3a;
-}
-.container-adicionar {
-    max-width: 400px;
-    margin: 40px auto;
-    background-color: #f2f4f7;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f8f9fa, #5fabf7);
 }
 
 .titulo {
+    color: #343a40;
+    margin-bottom: 30px;
+    font-weight: 600;
     text-align: center;
-    color: #2f3e52;
-    margin-bottom: 20px;
 }
 
-.container-adicionar form {
-    display: flex;
-    flex-direction: column;
+/* Caixa central */
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
 }
 
-.container-adicionar input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-
-.container-adicionar button {
-    background-color: #2f3e52;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
+/* Inputs de texto, número e data */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
     font-size: 15px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.container-adicionar button:hover {
-    background-color: #1e2b3a;
+/* Foco */
+input:focus,
+select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* Labels */
+label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Botão principal */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+/* Hover e clique */
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* Efeito suave ao aparecer */
+.container {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

@@ -1,7 +1,6 @@
 <?php
 include("conexao.php");
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['produtos_a_excluir'])) {
     
     if (!isset($_SESSION['id_usuario'])) {

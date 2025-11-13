@@ -59,11 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <input type="text" name="razao_social" placeholder="Razão Social" required>
             <p>
-                <input type="text" name="cnpj" placeholder="CNPJ" required>
+
+                <input type="text" name="cnpj" id="cnpj" maxlength="16" placeholder="CNPJ">
             <p>
                 <input type="text" name="email" placeholder="Email" required>
             <p>
-                <input type="text" name="telefone" placeholder="Telefone" required>
+
+                <input type="text" id="telefone" name="telefone" maxlength="15" placeholder="Telefone">
             <p>
                 <input type="text" name="departamento" placeholder="Departamento" required>
             <p>
@@ -71,4 +73,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </body>
+
+<script>
+
+// Máscara CNPJ
+document.getElementById('cnpj').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+    value = value.slice(0, 14);
+    value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+    value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    value = value.replace(/\.(\d{3})(\d)/, '.$1.$2');
+    value = value.replace(/\/(\d{4})(\d)/, '/$1-$2');
+    e.target.value = value;
+});
+
+// Máscara Telefone
+document.getElementById('telefone').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length <= 10) {
+        value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else {
+        value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    }
+    e.target.value = value;
+});
+</script>
+
 </html>

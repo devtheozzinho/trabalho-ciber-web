@@ -46,9 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } 
 ?>
 <head>
-    <title>Adicionar Produto - SOE</title>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produto</title>
     <link rel="stylesheet" href="../css/produtos.css?v=<?php echo time(); ?>">
 </head>
+
 <body>
     <div class="container-adicionar">
         <h2 class="titulo">Adicionar Novo Produto</h2>
