@@ -1,0 +1,8 @@
+.tabela {
+    background-color: white;
+    padding:50px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #2f3e52;
+    transition: 10ms;
+}
